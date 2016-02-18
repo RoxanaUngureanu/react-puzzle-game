@@ -7,8 +7,8 @@
 }
 
 .tile {
-  width: 100px;
-  height: 100px;
+  /*width: 100px;*/
+  /*height: 100px;*/
   border: 1px solid black;
   box-sizing: border-box;
   text-align: center;
@@ -18,7 +18,7 @@
   font-family: sans-serif;
   position: absolute;
   transition: .5s ease-in-out;
-  background: url('http://i.imgur.com/AS1or.jpg')no-repeat;
+  background: url('http://www.campuseventsblog.com/wp-content/uploads/2014/03/lilbub.jpg')no-repeat;
   -moz-box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
   -webkit-box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
   box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);

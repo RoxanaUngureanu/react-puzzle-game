@@ -25,13 +25,16 @@ var Board = React.createClass({
       var y = Math.floor(i/size)*tileSize;
       var pos = {x:x, y:y};
       var initialPos = {x:x, y:y};
-      board.push({number: i+1, pos: pos, initialPos:initialPos});
+      board.push({ pos: pos, initialPos:initialPos});
     }
     return {
       emptyPos: {
         x: width-100,
         y: width-100
       },
+      size:size,
+      width:width,
+      tileSize:tileSize,
       board: board
     }
   },
@@ -44,8 +47,9 @@ var Board = React.createClass({
       var tile = <Tile
       index={i}
       key = {i}
-      //number={i+1}
-        width=
+      number={i+1}
+      width={this.state.width}
+      tileSize={this.state.tileSize}
       position={this.state.board[i].pos}
       onClick={this.onTileClick}
       initialPos={this.state.board[i].initialPos}
@@ -101,16 +105,21 @@ var Tile = React.createClass({
 
     var pos = this.props.position;
     var initialPos = this.props.initialPos;
+    var tileSize = this.props.tileSize;
+    var width = this.props.width;
     var style = {
       left: pos.x,
       top: pos.y,
       backgroundPositionX:-initialPos.x,
-      backgroundPositionY:-initialPos.y
+      backgroundPositionY:-initialPos.y,
+      width:tileSize,
+      height:tileSize,
+      backgroundSize:width
     };
-    var number = this.props.number;
+    //var number = this.props.number;
     return (
       <div className="tile" style={style} onClick={this.onClick}>
-    <span>{ number }</span>
+    <span></span>
     </div>);
   }
 
