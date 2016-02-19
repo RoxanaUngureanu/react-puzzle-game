@@ -8,7 +8,7 @@ var AppComponent = React.createClass({
   render: function () {
     return (
       <div>
-        <Board size={3} width={300}/>
+        <Board size={4} width={400}/>
       </div>);
   }
 
@@ -57,7 +57,6 @@ var Board = React.createClass({
       tiles.push(tile)
     }
 
-
     return (
       <div>
       <div className="board" style={boardSize}>
@@ -90,19 +89,16 @@ var Board = React.createClass({
   },
 
   shuffleTiles: function() {
-    //alert('shuffle,boss')
-    var boardArray = this.state.board.slice();
+    var boardArray = this.state.board;
     var index = boardArray.length;
-    console.log(boardArray)
     var obj, randomIndex;
     while (0 !== index) {
       randomIndex = Math.floor(Math.random() * index);
       index = index-1;
-      obj = boardArray[index];
-      boardArray[index] = boardArray[randomIndex];
-      boardArray[randomIndex] = obj;
+      obj = boardArray[index].pos;
+      boardArray[index].pos = boardArray[randomIndex].pos;
+      boardArray[randomIndex].pos = obj;
     }
-    console.log(boardArray)
     this.setState({board:boardArray})
   }
 });
