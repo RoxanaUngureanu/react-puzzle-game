@@ -8,7 +8,7 @@ var AppComponent = React.createClass({
   render: function () {
     return (
       <div>
-        <Board size={5} width={500}/>
+        <Board size={3} width={300}/>
       </div>);
   }
 
@@ -25,12 +25,12 @@ var Board = React.createClass({
       var y = Math.floor(i/size)*tileSize;
       var pos = {x:x, y:y};
       var initialPos = {x:x, y:y};
-      board.push({ pos: pos, initialPos:initialPos});
+      board.push({number: i+1, pos: pos, initialPos:initialPos});
     }
     return {
       emptyPos: {
-        x: width-100,
-        y: width-100
+        x: width-tileSize,
+        y: width-tileSize
       },
       size:size,
       width:width,
@@ -63,6 +63,7 @@ var Board = React.createClass({
       <div className="board" style={boardSize}>
       {tiles}
       </div>
+        <button className="shuffleBtn" onClick={this.shuffleTiles}>Shuffle</button>
       </div>);
   },
 
@@ -79,20 +80,31 @@ var Board = React.createClass({
 //      alert("it is clicked " + index) ;
   },
 
-  isValidMove: function(startPos, targetPos){
+  isValidMove: function(startPos, targetPos) {
     var diffX = Math.abs(targetPos.x - startPos.x);
     var diffY = Math.abs(targetPos.y - startPos.y);
-    var validX = diffX === 100 && diffY === 0;
-    var validY = diffY === 100 && diffX === 0;
+    var validX = diffX === this.state.tileSize && diffY === 0;
+    var validY = diffY === this.state.tileSize && diffX === 0;
 
-    if (validX || validY){
-      return true;
+    return validX || validY
+  },
+
+  shuffleTiles: function() {
+    //alert('shuffle,boss')
+    var boardArray = this.state.board.slice();
+    var index = boardArray.length;
+    console.log(boardArray)
+    var obj, randomIndex;
+    while (0 !== index) {
+      randomIndex = Math.floor(Math.random() * index);
+      index = index-1;
+      obj = boardArray[index];
+      boardArray[index] = boardArray[randomIndex];
+      boardArray[randomIndex] = obj;
     }
-
-    return false
+    console.log(boardArray)
+    this.setState({board:boardArray})
   }
-
-
 });
 
 var Tile = React.createClass({
@@ -119,7 +131,7 @@ var Tile = React.createClass({
     //var number = this.props.number;
     return (
       <div className="tile" style={style} onClick={this.onClick}>
-    <span></span>
+
     </div>);
   }
 
