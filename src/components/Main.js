@@ -8,7 +8,7 @@ var AppComponent = React.createClass({
   render: function () {
     return (
       <div>
-        <Board size={4} width={400}/>
+        <Board size={7} width={300}/>
       </div>);
   }
 
@@ -75,15 +75,16 @@ var Board = React.createClass({
     obj = this.state.board[index].pos;
     this.state.board[index].pos = this.state.emptyPos;
     this.state.emptyPos = obj;
-    this.forceUpdate();
-//      alert("it is clicked " + index) ;
+    this.forceUpdate(this.isWinner);
+
   },
 
   isValidMove: function(startPos, targetPos) {
-    var diffX = Math.abs(targetPos.x - startPos.x);
-    var diffY = Math.abs(targetPos.y - startPos.y);
-    var validX = diffX === this.state.tileSize && diffY === 0;
-    var validY = diffY === this.state.tileSize && diffX === 0;
+    var diffX = Math.round(Math.abs(targetPos.x - startPos.x));
+    var diffY = Math.round(Math.abs(targetPos.y - startPos.y));
+    var tileSizeFloored = Math.round(this.state.tileSize);
+    var validX = diffX === tileSizeFloored && diffY === 0;
+    var validY = diffY === tileSizeFloored && diffX === 0;
 
     return validX || validY
   },
@@ -99,7 +100,19 @@ var Board = React.createClass({
       boardArray[index].pos = boardArray[randomIndex].pos;
       boardArray[randomIndex].pos = obj;
     }
-    this.setState({board:boardArray})
+    this.setState({board:boardArray});
+  },
+
+  isWinner: function(){
+    var board = this.state.board;
+    for (var i = 0; i < board.length; i++){
+      if ((board[i].pos.x != board[i].initialPos.x) || (board[i].pos.y != board[i].initialPos.y)){
+        return false
+      }
+    }
+    alert('Esti bine boss!!');
+
+    return true
   }
 });
 
